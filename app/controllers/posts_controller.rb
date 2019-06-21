@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = Post.includes(:user, :media, [likes: :user], [comments: :user]).all
   end
 end
