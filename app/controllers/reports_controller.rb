@@ -3,14 +3,14 @@ class ReportsController < ApplicationController
   end
 
   def top_user_posts
-    @users = User.joins(:posts).group('users.id').order('count(posts.id) DESC')
+    @users = OrderUserQuery.new(:posts).top_posts
   end
 
   def top_user_likes
-    @users = User.joins(posts: :likes).group('users.id').order('count(likes.id) DESC')
+    @users = OrderUserQuery.new({ posts: :likes }).top_likes
   end
 
   def top_posts
-    @posts = Post.joins(:likes).group('posts.id').order('count(likes.id) DESC')
+    @posts = OrderPostQuery.new.top_likes
   end
 end
